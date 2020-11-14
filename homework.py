@@ -83,5 +83,6 @@ class CaloriesCalculator(Calculator):
             return (f'Сегодня можно съесть что-нибудь ещё,'
                     f' но с общей калорийностью не более'
                     f' {remaining_something} кКал')
+
         if remaining_something < 0:
             return 'Хватит есть!'
