@@ -58,7 +58,8 @@ class CashCalculator(Calculator):
     def get_today_cash_remained(self, currency):
         remaining_cash = super().get_today_remained()
         currency_rate = {
-            'usd': self.USD_RATE, 'eur': self.EURO_RATE, 'rub': self.RUB_RATE}
+            'usd': self.USD_RATE, 'eur': self.EURO_RATE, 'rub': self.RUB_RATE
+            }
         currency_name = {'usd': 'USD', 'eur': 'Euro', 'rub': 'руб'}
 
         if remaining_cash == 0:
