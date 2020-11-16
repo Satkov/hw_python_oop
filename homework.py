@@ -95,15 +95,3 @@ class CaloriesCalculator(Calculator):
 
         if remaining_something < 0:
             return 'Хватит есть!'
-r1 = Record(amount=500, comment="Безудержный шопинг", date="16.11.2020")
-r2 = Record(amount=1200, comment="Наполнение потребительской корзины", date="14.11.2020")
-r3 = Record(amount=250, comment="Катание на такси", date="16.11.2020")
-
-cash_calculator = CashCalculator(1000)
-cash_calculator.add_record(r1)
-cash_calculator.add_record(r2)
-cash_calculator.add_record(r3)
-
-print(cash_calculator.get_today_stats())
-print(cash_calculator.get_week_stats())
-print(cash_calculator.get_today_cash_remained('eur'))
