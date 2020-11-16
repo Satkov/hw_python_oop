@@ -58,17 +58,13 @@ class CashCalculator(Calculator):
     def get_today_cash_remained(self, currency):
         remaining_cash = self.get_today_remained()
         currency_list = {
-            ('usd', self.USD_RATE, 'USD'), ('eur', self.EURO_RATE, 'Euro'),
-            ('rub', self.RUB_RATE, 'руб')
+            'usd': [self.USD_RATE, 'USD'], 'eur': [self.EURO_RATE, 'Euro'],
+            'rub': [self.RUB_RATE, 'руб']
             }
-# Я пытался сделать словарь формата usd: [USD_RATE, 'USD'], но переменная
-# USD_RATE в нём всегда была undefined, поэтому нашёл такой способ решения:
-        currency_dict = {currency: [rate, name] for
-                         currency, rate, name in currency_list}
 
-        currency_conv = round(remaining_cash / currency_dict[currency][0], 2)
+        currency_conv = round(remaining_cash / currency_list[currency][0], 2)
 
-        currency_name = currency_dict[currency][1]
+        currency_name = currency_list[currency][1]
 
         if remaining_cash == 0:
             return 'Денег нет, держись'
