@@ -56,29 +56,36 @@ class CashCalculator(Calculator):
     RUB_RATE = 1
 
     def get_today_cash_remained(self, currency):
-        remaining_cash = super().get_today_remained()
-        currency_rate = {
-            'usd': self.USD_RATE, 'eur': self.EURO_RATE, 'rub': self.RUB_RATE
+        remaining_cash = self.get_today_remained()
+        currency_list = {
+            ('usd', self.USD_RATE, 'USD'), ('eur', self.EURO_RATE, 'Euro'),
+            ('rub', self.RUB_RATE, 'руб')
             }
-        currency_name = {'usd': 'USD', 'eur': 'Euro', 'rub': 'руб'}
+# Я пытался сделать словарь формата usd: [USD_RATE, 'USD'], но переменная
+# USD_RATE всегда была undefined, поэтому нашёл такой способ решения:
+        currency_dict = {usd: [eur, rub] for usd, eur, rub in currency_list}
+
+        currency_conv = round(remaining_cash / currency_dict[currency][0], 2)
+
+        currency_name = currency_dict[currency][1]
 
         if remaining_cash == 0:
             return 'Денег нет, держись'
 
         if remaining_cash > 0:
             return (f'На сегодня осталось'
-                    f' {round(remaining_cash/currency_rate[currency], 2)}'
-                    f' {currency_name[currency]}')
+                    f' {currency_conv}'
+                    f' {currency_name}')
 
         if remaining_cash < 0:
             return (f'Денег нет, держись: твой долг - '
-                    f'{abs(round(remaining_cash/currency_rate[currency], 2))}'
-                    f' {currency_name[currency]}')
+                    f'{abs(currency_conv)}'
+                    f' {currency_name}')
 
 
 class CaloriesCalculator(Calculator):
     def get_calories_remained(self):
-        remaining_something = super().get_today_remained()
+        remaining_something = self.get_today_remained()
 
         if remaining_something > 0:
             return (f'Сегодня можно съесть что-нибудь ещё,'
@@ -87,3 +94,16 @@ class CaloriesCalculator(Calculator):
 
         if remaining_something < 0:
             return 'Хватит есть!'
+
+r1 = Record(amount=500, comment="Безудержный шопинг", date="16.11.2020")
+r2 = Record(amount=1200, comment="Наполнение потребительской корзины", date="14.11.2020")
+r3 = Record(amount=250, comment="Катание на такси", date="16.11.2020")
+
+cash_calculator = CashCalculator(1000)
+cash_calculator.add_record(r1)
+cash_calculator.add_record(r2)
+cash_calculator.add_record(r3)
+
+print(cash_calculator.get_today_stats())
+print(cash_calculator.get_week_stats())
+print(cash_calculator.get_today_cash_remained('eur'))
