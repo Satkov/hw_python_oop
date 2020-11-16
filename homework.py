@@ -62,12 +62,13 @@ class CashCalculator(Calculator):
             'rub': [self.RUB_RATE, 'руб']
             }
 
-        currency_conv = round(remaining_cash / currency_list[currency][0], 2)
-
-        currency_name = currency_list[currency][1]
-
         if remaining_cash == 0:
             return 'Денег нет, держись'
+
+        currency_conv = round(remaining_cash / currency_list[currency][0], 2)
+        minus_currency_conv = abs(round(remaining_cash / currency_list[currency][0], 2))
+
+        currency_name = currency_list[currency][1]
 
         if remaining_cash > 0:
             return (f'На сегодня осталось'
@@ -76,7 +77,7 @@ class CashCalculator(Calculator):
 
         if remaining_cash < 0:
             return (f'Денег нет, держись: твой долг - '
-                    f'{abs(currency_conv)}'
+                    f'{minus_currency_conv}'
                     f' {currency_name}')
 
 
