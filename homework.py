@@ -66,6 +66,7 @@ class CashCalculator(Calculator):
             return 'Денег нет, держись'
 
         currency_conv = round(remaining_cash / currency_list[currency][0], 2)
+        
         minus_currency_conv = abs(round(remaining_cash / currency_list[currency][0], 2))
 
         currency_name = currency_list[currency][1]
