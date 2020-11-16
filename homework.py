@@ -56,7 +56,7 @@ class CashCalculator(Calculator):
 
     def get_today_cash_remained(self, currency):
         remaining_cash = self.get_today_remained()
-        currency_list = {'usd': [self.USD_RATE, 'USD'], 
+        currency_list = {'usd': [self.USD_RATE, 'USD'],
                          'eur': [self.EURO_RATE, 'Euro'],
                          'rub': [1, 'руб']}
 
@@ -65,7 +65,8 @@ class CashCalculator(Calculator):
 
         currency_conv = round(remaining_cash / currency_list[currency][0], 2)
 
-        minus_currency_conv = abs(round(remaining_cash / currency_list[currency][0], 2))
+        minus_currency_conv = abs(round(remaining_cash / currency_list[
+                                        currency][0], 2))
 
         currency_name = currency_list[currency][1]
 
