@@ -62,8 +62,9 @@ class CashCalculator(Calculator):
             ('rub', self.RUB_RATE, 'руб')
             }
 # Я пытался сделать словарь формата usd: [USD_RATE, 'USD'], но переменная
-# USD_RATE всегда была undefined, поэтому нашёл такой способ решения:
-        currency_dict = {usd: [eur, rub] for usd, eur, rub in currency_list}
+# USD_RATE в нём всегда была undefined, поэтому нашёл такой способ решения:
+        currency_dict = {currency: [rate, name] for
+                         currency, rate, name in currency_list}
 
         currency_conv = round(remaining_cash / currency_dict[currency][0], 2)
 
@@ -94,3 +95,15 @@ class CaloriesCalculator(Calculator):
 
         if remaining_something < 0:
             return 'Хватит есть!'
+r1 = Record(amount=500, comment="Безудержный шопинг", date="16.11.2020")
+r2 = Record(amount=1200, comment="Наполнение потребительской корзины", date="14.11.2020")
+r3 = Record(amount=250, comment="Катание на такси", date="16.11.2020")
+
+cash_calculator = CashCalculator(1000)
+cash_calculator.add_record(r1)
+cash_calculator.add_record(r2)
+cash_calculator.add_record(r3)
+
+print(cash_calculator.get_today_stats())
+print(cash_calculator.get_week_stats())
+print(cash_calculator.get_today_cash_remained('eur'))
